@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Add your Incomes</h1>
+<div class="container">
+
+    <form action="" method="post" name="incomes">
+        <div class="income_container">
+
+            {{ form.hidden_tag()   }}
+
+            <div class="form-group">
+
+                <label for="exampleIncomeName">Income Name</label>
+                {{ form.income_name(class="form-control" , id="exampleIncomeName" , placeholder="Salary - Oct.")}}
+                <small id="incomeDescription" class="form-text text-muted">Use Meanigfull and short names!</small>
+
+            </div>
+
+            <div class="form-group">
+
+                <label for="exampleIncomeType">Income Type</label>
+                {{ form.income_type(class="form-control" , id="exampleIncomeType" )}}
+
+                
+            </div>
+
+            <div class="form-group">
+
+                <label for="exampleIncomeAmount">Amount</label>
+                {{ form.income_amount(class="form-control" , id="exampleIncomeAmount")}}
+
+            </div>
+
+        </div>
+
+        <button type="submit" class="btn btn-warning">Add Income</button>
+    </form>  
+
+</div>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% if goalPresent == True %}
+    <h1>Edit your Goal</h1>
+{% else %}
+    <h1>Add your Goal</h1>
+{% endif %}
+
+
+<div class="container">
+    <form action="" method="post" name="goal">
+        <div class="income_container">
+
+            {{ form.hidden_tag()}}
+
+
+            <div class="form-group">
+                <label for="exampleGoalName">Goal Name</label>
+                {{ form.goal_name(class="form-control" ,id="exampleGoalName")}}
+            </div>
+            
+            <div class="form-group">
+                <label for="exampleGoalAmount">Amount</label>
+                {{ form.goal_amount(class="form-control", id="exampleGoalAmount")}}  
+            </div>
+
+         
+        </div>
+        <!-- Change the button label if the Goal already is Present-->
+        {% if goalPresent == True %}
+            <button type="submit" class="btn btn-warning">Edit Goal</button>
+        {% else %}
+            <button type="submit" class="btn btn-warning">Add Goal</button>
+        {% endif %}
+        
+    </form>
+</div>
+{% endblock %}
+

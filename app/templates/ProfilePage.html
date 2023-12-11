@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1>{{ user.username }}'s Profile</h1>
+    
+<!-- Display user's posts -->
+<h2>Posts:</h2>
+{% for post in posts %}
+
+    <div>
+        <p>{{ post.content }}</p>
+        <!-- Add other post details as needed -->
+    </div>
+
+{% endfor %}
+
+{% if current_user != user.id %}
+    <!-- Display follow/unfollow button if the user is not the currently logged-in user -->
+
+
+    <form>
+        <button class="follow-button" id="follow-button" data-user-id="{{ user.id }}">
+            {% if follower %}
+                Unfollow    
+            {% else %}
+                Follow
+            {% endif %}
+        </button>
+    </form> 
+
+{% else %}
+
+{% endif %}
+
+
+
+{% endblock %} 

@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+
+<form method="post">
+
+    <div class="income_container">
+
+        {{ form.hidden_tag()   }}
+
+        <div class="form-group">
+
+            <label for="exampleIncomeName">Post:</label>
+            {{ form.content(class="form-control" , id="exampleIncomeName" , placeholder="")}}
+            <small id="incomeDescription" class="form-text text-muted">Text:</small>
+
+        </div>
+
+        <button type="submit" class="btn btn-warning">POST</button>
+
+    </div>
+</form>
+
+
+{% endblock %}

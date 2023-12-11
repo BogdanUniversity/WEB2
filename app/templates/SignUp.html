@@ -1,0 +1,47 @@
+{% extends 'WebBase.html'%}
+{% block content %}
+
+<h1>Welocme to Sign Up</h1>
+
+<form method="post">
+
+    <div class="income_container">
+
+        {{ form.hidden_tag()   }}
+
+        <div class="form-group">
+
+            <label for="exampleIncomeName">UserName</label>
+            {{ form.username(class="form-control" , id="exampleIncomeName" , placeholder="")}}
+            <small id="incomeDescription" class="form-text text-muted">Make Sure your Username is Sensible</small>
+
+        </div>
+
+        <div class="form-group">
+
+            <label for="exampleIncomeType">Password</label>
+            {{ form.password(class="form-control" , id="exampleIncomeType" )}}
+
+        </div>
+
+
+        <button type="submit" class="btn btn-warning">Sign Up</button>
+
+    </div>
+</form>
+
+
+<div class="income_container">
+    <h1>Already with us ?</h1>
+
+    <form action="/">
+        <button class="btn btn-warning">LogIn</button> 
+    </form>
+
+</div>
+
+
+
+
+
+{% endblock %} 

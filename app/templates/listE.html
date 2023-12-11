@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1>List of all Expences</h1>
+
+<form method="post" action='/clear_expences'>
+    <button type="submit" class="btn btn-danger">Clear All Expences</button>
+</form>
+
+<div class="container">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Expence Name</th>
+        <th>Type</th>
+        <th>Amount</th>
+        <th>Date-Added</th>
+        <th>Edit</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for expence in records %}
+        <tr>
+          <td>{{ expence.expence_name }}</td>
+          <td>{{ expence.expence_type }}</td>
+          <td>{{ expence.expence_amount }}</td>
+          <td>{{ expence.transaction_date.strftime('%Y-%m-%d')[:10] }}</td>
+          <td>
+            <form method="post" action='/delete_record_expence/{{expence.id}}'>
+              <button type="submit" class="btn btn-danger btn-sm">x</button>
+            </form>                           
+          </td>
+          <td>
+            <form method="post" action='/expenceEdit/{{expence.id}}'>
+              <button type="submit" class="btn btn-warning btn-sm">Edit</button>
+            </form>    
+          </td>
+        </tr>
+      {% endfor %}
+      <div class="container bottom-container">
+        <p>Total Expence: £{{ totalExpence }}</p>
+      </div>
+    </tbody>
+  </table>
+</div>
+  
+
+{% endblock %}

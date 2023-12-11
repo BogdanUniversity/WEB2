@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Add your Expences</h1>
+
+<div class="container">
+    <form  action="" method="post" name="expence">
+        <div class="income_container">
+
+            {{ form.hidden_tag()   }}
+
+            <div class="form-group">
+
+                <label for="exampleExpenceName">Expence Name</label>
+                {{ form.expence_name(class="form-control" ,  placeholder="Food - Oct.", id="exampleExpenceName")}}
+                <small id="expenceDescription" class="form-text text-muted">Use Meanigfull and short names!</small>
+
+            </div>
+
+            <div class="form-group">
+
+                <label for="exampleExpenceType">Expence Type</label>
+                {{ form.expence_type(class="form-control" , id="exampleExpenceType")}}
+
+                
+            </div>
+
+            <div class="form-group">
+
+                <label for="exampleAmount">Amount</label>
+                {{ form.expence_amount(class="form-control" , id="exampleAmount")}}
+
+            </div>
+
+        </div>
+
+        <button type="submit" class="btn btn-warning">Add Expence</button>
+    </form> 
+</div>
+
+{% endblock %}
+

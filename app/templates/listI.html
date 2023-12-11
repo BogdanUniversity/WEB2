@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1>List of all Incomes</h1>
+
+<form method="post" action='/clear_incomes'>
+    <button type="submit" class="btn btn-danger">Clear All Incomes</button>
+</form>
+
+<div class="container">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Income Name</th>
+        <th>Type</th>
+        <th>Amount</th>
+        <th>Date-Added</th>
+        <th>Edit</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for income in records %}
+        <tr>
+          <td>{{ income.income_name }}</td>
+          <td>{{ income.income_type }}</td>
+          <td>{{ income.income_amount }}</td>
+          <td>{{ income.transaction_date.strftime('%Y-%m-%d')[:10] }}</td>
+          <td>
+            <form method="post" action='/delete_record_income/{{income.id}}'>
+              <button type="submit" class="btn btn-danger btn-sm">x</button>
+            </form>                           
+          </td>
+          <td>
+            <form method="post" action='/incomeEdit/{{income.id}}'>
+              <button type="submit" class="btn btn-warning btn-sm">Edit</button>
+            </form>    
+          </td>
+        </tr>
+      {% endfor %}
+      <div class="container bottom-container">
+        <p>Total Income: £{{ totalIncome }}</p>
+      </div>
+    </tbody>
+  </table>
+</div>
+<div class="container">
+</div>
+  
+
+{% endblock %}

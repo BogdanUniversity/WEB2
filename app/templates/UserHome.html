@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1 class="title" id="title"> Welcome to SocialBook {{  UserName  }} </h1>
+
+
+<div class="Post-Container">
+
+    {% for post in posts %}
+    <div class="income_container">
+        <div class="post_outline">
+            <form method="get" action='/profile/{{ post.user_id }}'>
+                <button class="view-profile-button" data-user-id="{{ post.user.id }}">{{ post.user.username }}</button>
+            </form>
+        
+
+            <p class="post-text">{{ post.content }}</p>
+            <h1  class ="like_count" id="like-count-{{ post.id }}">{{ post.like_count }}</h1>
+
+            <!--
+            <form method="get" action='/profile/{{ post.user_id }}'>
+            <button class="view-profile-button" data-user-id="{{ post.user.id }}">View Profile</button>
+            </form>
+            --> 
+        </div>
+        <!-- Make The Button Change Color based if the user liked a post -->
+        {% if post.id in likes %}
+        <!-- User liked this post, set the background color to green -->
+            <button id="like-button-{{ post.id }}" style="background-color: #50C99A;" class="like-button" data-post-id="{{ post.id }}">♥</button>
+        {% else %}
+            <!-- User has not liked this post, set the background color to black -->
+            <button id="like-button-{{ post.id }}" style="background-color: white;" class="like-button" data-post-id="{{ post.id }}">♥</button>
+      {% endif %}
+    </div>
+
+
+    <script src="{{ url_for('static', filename='scrip1.js') }}"></script>
+    {% endfor %}
+</div>
+{% endblock %}

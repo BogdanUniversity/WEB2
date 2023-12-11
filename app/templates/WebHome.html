@@ -1,0 +1,48 @@
+{% extends "WebBase.html" %}
+{% block content %}
+<h1> Welocme to SocialBook </h1>
+
+<!--Implement a Login Form-->
+
+
+
+
+<div class="front-page-container">
+    <form method="post">
+
+        <div class="income_container">
+
+            {{ form.hidden_tag()   }}
+
+            <div class="form-group">
+
+                <label for="exampleIncomeName">UserName</label>
+                {{ form.username(class="form-control" , id="exampleIncomeName" , placeholder="")}}
+                <small id="incomeDescription" class="form-text text-muted">Use Meanigfull and short names!</small>
+
+            </div>
+
+            <div class="form-group">
+
+                <label for="exampleIncomeType">Password</label>
+                {{ form.password(class="form-control" , id="exampleIncomeType" )}}
+
+            </div>
+
+
+            <button type="submit" class="btn btn-warning">Log In</button>
+
+        </div>
+    </form>
+
+
+    <div class="income_container">
+        <h1>No Account ?</h1>
+
+        <form action="/redirect_to_SignUp">
+            <button class="btn btn-warning">SIGN UP</button> 
+        </form>
+
+    </div>
+</div>
+{% endblock %}
