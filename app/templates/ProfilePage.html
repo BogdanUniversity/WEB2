@@ -4,34 +4,41 @@
 <h1>{{ user.username }}'s Profile</h1>
     
 <!-- Display user's posts -->
-<h2>Posts:</h2>
-{% for post in posts %}
+<div class="ProfileDiv">
+    <h2> Posts:</h2>
+    {% for post in posts %}
 
-    <div>
-        <p>{{ post.content }}</p>
-        <!-- Add other post details as needed -->
-    </div>
+        <div class="PostContent">
+            <p>{{ post.content }}</p>
+            <!-- Add other post details as needed -->
+        </div>
 
-{% endfor %}
+    {% endfor %}
 
-{% if current_user != user.id %}
-    <!-- Display follow/unfollow button if the user is not the currently logged-in user -->
+    {% if current_user != user.id %}
+        <!-- Display follow/unfollow button if the user is not the currently logged-in user -->
 
-
-    <form>
-        <button class="follow-button" id="follow-button" data-user-id="{{ user.id }}">
+        <button id="follow-button" style="background-color: #50C99A;"  data-user-id="{{ user.id }}">
+            
             {% if follower %}
-                Unfollow    
+
+                Unfollow  
+
             {% else %}
+
                 Follow
+
             {% endif %}
         </button>
-    </form> 
+        
 
-{% else %}
+    {% else %}
 
-{% endif %}
+    {% endif %}
+        <script src="{{ url_for('static', filename='scrip1.js') }}"></script>
 
+
+</div>
 
 
 {% endblock %} 

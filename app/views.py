@@ -11,26 +11,28 @@ admin.add_view(ModelView(models.PostTable, db.session))
 admin.add_view(ModelView(models.UserTable, db.session))
 admin.add_view(ModelView(models.FollowingTable, db.session))
 
+
+@app.route('/follow/<int:user_id>' , methods=['POST'])
 def follow(user_id):
-    user_to_follow = models.UserTable.query.get_or_404(user_id)
+    
 
     current_user = session['user_id']
-    follower = models.FollowingTable.query.get(UserID = current_user, FoloweeID = user_id ).first()
+    follower = models.FollowingTable.query.filter_by(UserID = current_user, FolloweeID = user_id ).first()
     
-    if request.form['action'] == 'toggle':
-        if follower:
-            ##delete folower from FolowerTable
-            db.session.delete(follower)
-            action = 'Unfollow'
-        else:
-            new_follower = models.FollowingTable(UserID = current_user, FoloweeID = user_id)
-            db.session.add(new_follower)
-            action = 'Follow'
+    if follower:
+        #delete folower from FolowerTable
+        db.session.delete(follower)
+        action = 'Unfollow'
+    else:
+        new_follower = models.FollowingTable(UserID = current_user, FolloweeID = user_id)
+        db.session.add(new_follower)
+        action = 'Follow'
 
-        db.session.commit()
-        return jsonify({"status": "OK", "action": action})
+    db.session.commit()
 
-    return jsonify({"status": "Error", "message": "Invalid action"})
+    return jsonify({ "status": "OK", "action": action })
+
+    
 
 
 @app.route('/profile/<int:user_id>')
@@ -48,14 +50,13 @@ def like_post(post_id):
     post = models.PostTable.query.get_or_404(post_id)
     user_id = session["user_id"]
     existing_like = models.Likes.query.filter_by(user_id=user_id,post_id=post_id).first()
+    
     # Increment the like count
     if existing_like:
         return jsonify( {"status" : "not OK"} )
     
     like = models.Likes(user_id = user_id, post_id = post_id )
     db.session.add(like)
-
-
     post.like_count += 1
     db.session.commit()
 
@@ -124,7 +125,7 @@ def  UserMainFollower():
     following_users = models.FollowingTable.query.filter_by(UserID=user_id).all()
     
     # Extract the user IDs of the users being followed
-    following_user_ids = [following.user_id for following in following_users]
+    following_user_ids = [following.FolloweeID for following in following_users]
 
     # Retrieve posts from the users being followed
     posts = models.PostTable.query.filter(models.PostTable.user_id.in_(following_user_ids)).all()

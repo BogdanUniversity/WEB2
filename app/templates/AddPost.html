@@ -2,21 +2,23 @@
 {% block content %}
 
 <form method="post">
+    <div class="PostBox">
 
-    <div class="income_container">
+        <div class="income_container">
 
-        {{ form.hidden_tag()   }}
+            {{ form.hidden_tag()   }}
 
-        <div class="form-group">
+            <div class="form-group">
 
-            <label for="exampleIncomeName">Post:</label>
-            {{ form.content(class="form-control" , id="exampleIncomeName" , placeholder="")}}
-            <small id="incomeDescription" class="form-text text-muted">Text:</small>
+                <label for="exampleIncomeName">Post:</label>
+                {{ form.content(class="form-control" , id="exampleIncomeName" , placeholder="")}}
+                <small id="incomeDescription" class="form-text text-muted">Text:</small>
+
+            </div>
+
+            <button type="submit" class="btn btn-warning">POST</button>
 
         </div>
-
-        <button type="submit" class="btn btn-warning">POST</button>
-
     </div>
 </form>
 

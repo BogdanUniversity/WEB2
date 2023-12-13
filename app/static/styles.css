@@ -5,7 +5,30 @@
     font-style: normal;
 }
 
+.PostBox
+{
+    margin: auto;
+    width: 700px;
+    
+}
 
+.PostContent
+{
+    border: dashed 2px orange;
+    margin: 10px;
+}
+
+.ProfileDiv
+{
+
+justify-content: center;
+align-items: center;
+margin: auto;
+padding:20px;
+width: 700px;
+border: dotted 4px black;
+
+}
 
 .front-page-container
 {

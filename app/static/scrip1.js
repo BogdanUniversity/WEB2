@@ -11,7 +11,7 @@ $(document).ready(function() {
         }
     });
 
-    // Attach a function to trigger when users click on the voting links - either an up vote, or a down vote
+    // Attach a function to trigger when users click on the like button.
     $(".like-button").on("click", function() {
         var postId = $(this).data("post-id");
 
@@ -35,24 +35,31 @@ $(document).ready(function() {
     });
 
     // Add your new function here
-    $(".follow-button").on("click",function(){
+    $("#follow-button").on("click",function(){
+        console.log("Clicked");
         var userId = $(this).data("user-id"); 
+        var followButton = "#follow-button";
 
         $.ajax({
             url: "/follow/" + userId,
-            type: "POST",
-            data: { action: "toggle" },
-            dataType: "json",
+            type: 'POST',
             success: function(data) {
+                console.log(data);
                 // Update UI based on the response
                 if (data.status == "OK") {
                     if (data.action == 'Follow')
-                    {
+                    {   
+                        console.log("Followed");
                         // Perform The Follow Action
+                        $(followButton).text("Unfollow"); 
+                        // Example: Update button text
                     }
                     else
-                    {
+                    {   
+                        console.log("Unfollowed");
                         // Perform the Unfollow Action
+                        $(followButton).text("Follow"); 
+                        // Example: Update button text
                     }   
                 }
             },
@@ -61,5 +68,4 @@ $(document).ready(function() {
             }
         });
     });
-
 });
