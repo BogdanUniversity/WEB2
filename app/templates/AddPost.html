@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 
+<h1>Add a New Post!</h1>
 <form method="post">
     <div class="PostBox">
 
@@ -11,12 +12,12 @@
             <div class="form-group">
 
                 <label for="exampleIncomeName">Post:</label>
-                {{ form.content(class="form-control" , id="exampleIncomeName" , placeholder="")}}
-                <small id="incomeDescription" class="form-text text-muted">Text:</small>
+                {{ form.content(class="form-control form-control-2" , id="exampleIncomeName" , placeholder="")}}
+                
 
             </div>
 
-            <button type="submit" class="btn btn-warning">POST</button>
+            <button type="submit" class="own-submit btn btn-warning">POST</button>
 
         </div>
     </div>

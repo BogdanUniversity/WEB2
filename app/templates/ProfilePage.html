@@ -9,9 +9,20 @@
     {% for post in posts %}
 
         <div class="PostContent">
+
             <p>{{ post.content }}</p>
-            <!-- Add other post details as needed -->
+
+            {% if current_user == user.id %}
+
+            <form method="post" action="/delete/{{post.id }}" >
+                <!-- Display "x" button only when the current user is viewing their own profile -->
+                <button class="delete-button" data-post-id="{{ post.id }}"> X </button>
+            </form>
+
+        {% endif %}
         </div>
+
+       
 
     {% endfor %}
 

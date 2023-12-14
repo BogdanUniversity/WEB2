@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SelectField, FloatField
+from wtforms import StringField, SelectField, FloatField , PasswordField
 from wtforms.validators import DataRequired, NumberRange, Optional
 from wtforms import ValidationError
 from app import models
@@ -32,7 +32,7 @@ class PostForm(FlaskForm):
 
 class LoginUserForm(FlaskForm):
     username = StringField('username')
-    password = StringField('password')
+    password = PasswordField('password')
 
 class SignUpForm(FlaskForm):
     username = StringField('username')

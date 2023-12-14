@@ -12,6 +12,24 @@ admin.add_view(ModelView(models.UserTable, db.session))
 admin.add_view(ModelView(models.FollowingTable, db.session))
 
 
+
+@app.route('/delete/<int:post_id>' , methods=['POST' , 'GET'])
+def delete(post_id):
+    # Need to delete the post from the post table, however we also need to make
+    # sure we also delete the post from being liked in the likes table
+
+    post = models.PostTable.query.get_or_404(post_id)
+
+    likes_to_delete = models.Likes.query.filter_by(post_id=post_id).all()
+    for like in likes_to_delete:
+        db.session.delete(like)
+
+    db.session.delete(post)
+    db.session.commit()
+
+    return redirect('/profile/' + str(session['user_id']) + '?/')
+    
+
 @app.route('/follow/<int:user_id>' , methods=['POST'])
 def follow(user_id):
     
@@ -101,25 +119,53 @@ def SignUp():
 def redirect_to_SignUp():
     return redirect('/SignUp')
 
-@app.route('/UserMain', methods=['GET'])
+@app.route('/UserMain', methods=['GET', 'POST'])
 def  UserMain():
+
+
+    if request.method == 'POST':
+        if session['ordering']:
+            session['ordering'] = False
+        else:
+            session['ordering'] = True
+        
+        return redirect('/UserMain')
 
     UserName = session['username']
     posts = models.PostTable.query.all()
     likes_objects = models.Likes.query.filter_by(user_id=session['user_id']).all()
     likes = [like.post_id for like in likes_objects]
 
-
-
+    display_popular = session['ordering']
+    if display_popular:
+        posts.sort(key=lambda post: post.like_count, reverse = True)
+    else:
+        posts.reverse()
+    
 
     return render_template('UserHome.html', UserName = UserName , posts=posts, likes = likes)
 
 
-@app.route('/UserMainFollowers', methods=['GET'])
+@app.route('/UserMainFollowers', methods=['GET', 'POST'])
 def  UserMainFollower():
 
+
+
+    if request.method == 'POST':
+        if session['ordering']:
+
+            session['ordering'] = False#
+        else:
+            session['ordering'] = True
+        
+        return redirect('/UserMainFollowers')
+    
     UserName = session['username']
     user_id = session['user_id']
+
+
+
+    
     
     # Assuming you have a relationship between FollowingTable and UserTable, adjust as needed
     following_users = models.FollowingTable.query.filter_by(UserID=user_id).all()
@@ -134,6 +180,11 @@ def  UserMainFollower():
     likes_objects = models.Likes.query.filter_by(user_id=user_id).all()
     likes = [like.post_id for like in likes_objects]
 
+
+    display_popular = session['ordering']
+    if display_popular:
+        posts.sort(key=lambda post: post.like_count, reverse = True)
+
     # All_posts = models.PostTable.query.all()
 
     # Only Query the posts by the Folowee ID in the users Follower Table.
@@ -141,7 +192,6 @@ def  UserMainFollower():
     #posts = models.PostTable.query.all()
     #likes_objects = models.Likes.query.filter_by(user_id=session['user_id']).all()
     #likes = [like.post_id for like in likes_objects]
-
 
     return render_template('UserHomeFollower.html', UserName = UserName , posts=posts, likes = likes)
 
@@ -170,6 +220,7 @@ def home():
             flash("Logging In",'alert alert-success')
             session['user_id'] = user.id
             session['username'] = user.username
+            session['ordering'] = False
             return redirect('/UserMain')
         
         else:

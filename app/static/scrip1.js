@@ -11,11 +11,12 @@ $(document).ready(function() {
         }
     });
 
-    // Attach a function to trigger when users click on the like button.
+    // Attaches a function to button Click
     $(".like-button").on("click", function() {
         var postId = $(this).data("post-id");
 
-        // This is the actual call which sends data to the server. It captures the data we need in order to update the vote count: the ID of the idea which was clicked, and which count to incrememnt.
+       // Upon Correct signal retrival the like button changes color,
+       // And Like count gets Incremented
         $.ajax({
             url: '/like/' + postId,
             type: 'POST',

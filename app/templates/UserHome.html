@@ -3,6 +3,20 @@
 
 <h1 class="title" id="title"> Welcome to SocialBook {{  UserName  }} </h1>
 
+<form method="post">
+    <button id="ordering-button" class="OrderingBtn"> 
+        {% if session['ordering'] %}
+
+        Filter by Newest
+
+        {% else %}
+
+        Filter by Popular
+
+        {% endif %}    
+    </button>
+</form>
+
 
 <div class="Post-Container">
 
@@ -14,7 +28,7 @@
             </form>
         
 
-            <p class="post-text">{{ post.content }}</p>
+            <h1 class="post-text">{{ post.content }}</h1>
             <h1  class ="like_count" id="like-count-{{ post.id }}">{{ post.like_count }}</h1>
 
             <!--
